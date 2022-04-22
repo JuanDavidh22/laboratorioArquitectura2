@@ -21,35 +21,29 @@ import javax.ws.rs.core.MediaType;
  *
  * @author juanc
  */
-
 @Path("/Oferta")
 @Stateless
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class OfertaService {
-    
-    
+
     @EJB
     private IServicioOfertaMockLocal ofertaEJB;
     
+
     @POST
     @Path("agregar/")
-    public List<Oferta> agregarOfertas(List<Oferta> mb) {
-        for (Oferta oferta : mb) {
-            ofertaEJB.agregarOferta(oferta);
-        }
-        return mb;
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Oferta agregarOfertas(Oferta ofertas) {
+        ofertaEJB.agregarOferta(ofertas);
+        return ofertas;
     }
-    
+
     @GET
     @Path("ofertas/")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Oferta> getTodasLasOfertas() {
         return ofertaEJB.getOfertas();
     }
-    
-//    @GET
-//    @Path("muebles/")
-//    public List<Mueble> getTodosLosMuebles() {
-//        return catalogoEjb.darMuebles();
-//    }
 }
